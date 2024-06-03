@@ -1,3 +1,7 @@
+/**
+ * Block customization
+ */
+//% weight=1000 color=#0fbcb3 icon="\uf067" block="Robot"
 namespace maqueenSimple {
 
     //Motor selection enumeration
@@ -30,9 +34,9 @@ namespace maqueenSimple {
 
     //LED light switch enumeration selection
     export enum MyEnumSwitch {
-        //% block="on"
-        Close,
         //% block="off"
+        Close,
+        //% block="on"
         Open,
     };
 
