@@ -1,7 +1,3 @@
-/**
- * Block customization
- */
-//% weight=1000 color=#0fbcb3 icon="\uf067" block="Robot"
 namespace maqueenSimple {
 
     //Motor selection enumeration
@@ -10,13 +6,13 @@ namespace maqueenSimple {
         LeftMotor,
         //% block="right motor"
         RightMotor,
-        //% block="all motor"
+        //% block="both motors"
         AllMotor,
     };
 
     //Motor direction enumeration selection
     export enum MyEnumDir {
-        //% block="rotate forward"
+        //% block="forward"
         Forward,
         //% block="backward"
         Backward,
@@ -79,6 +75,13 @@ namespace maqueenSimple {
         Black = 0x000000
     }
 
+    export enum LeftRight {
+        //% block=left
+        Left,
+        //% block=right
+        Right
+    }
+
     const I2CADDR = 0x10;
     const ADC0_REGISTER = 0X1E;
     const ADC1_REGISTER = 0X20;
@@ -137,16 +140,53 @@ namespace maqueenSimple {
 
     /**
      * Move forward for a certain amount of time.
-     * @param seconds How long to move forward for
+     * @param edir Direction to move in
+     * @param time How long to move forward for
      */
 
-    //% block="move forward for %eseconds seconds"
-    //% seconds.min=0 seconds.max=100
+    //% block="move %edir for %time seconds"
+    //% time.min=0 time.max=100
     //% weight=99
-    export function moveForward(seconds: number): void {
-        controlMotor(MyEnumMotor.AllMotor, MyEnumDir.Forward, 100);
-        basic.pause(seconds * 1000);
+    export function moveForward(edir: MyEnumDir, time: number): void {
+        controlMotor(MyEnumMotor.AllMotor, edir, 100);
+        basic.pause(time * 1000);
         controlMotorStop(MyEnumMotor.AllMotor);
+    }
+
+
+    /**
+     * Turn in a direction for a certain amount of time.
+     * @param dir Direction to move in
+     * @param time How long to turn for
+     */
+    //% block="turn %dir for %time seconds"
+    //% time.min=0 time.max=10
+    //% weight=99
+    export function turn(dir: LeftRight, time: number): void {
+        if (dir == LeftRight.Left) {
+            controlMotor(MyEnumMotor.LeftMotor, MyEnumDir.Backward, 100);
+            controlMotor(MyEnumMotor.RightMotor, MyEnumDir.Forward, 100);
+        } else if (dir == LeftRight.Right) {
+            controlMotor(MyEnumMotor.RightMotor, MyEnumDir.Backward, 100);
+            controlMotor(MyEnumMotor.LeftMotor, MyEnumDir.Forward, 100);
+        }
+        basic.pause(time * 1000);
+        controlMotorStop(MyEnumMotor.AllMotor);
+    }
+
+    /**
+     * Stop all motors.
+     */
+    //% block="stop"
+    //% weight=99
+    export function stop(): void {
+        let allBuffer2 = pins.createBuffer(5);
+        allBuffer2[0] = LEFT_MOTOR_REGISTER;
+        allBuffer2[1] = 0;
+        allBuffer2[2] = 0;
+        allBuffer2[3] = 0;
+        allBuffer2[4] = 0;
+        pins.i2cWriteBuffer(I2CADDR, allBuffer2);
     }
 
     /**
@@ -211,13 +251,13 @@ namespace maqueenSimple {
                 pins.i2cWriteBuffer(I2CADDR, rightBuffer2);
                 break;
             default:
-                let allBuffer2 = pins.createBuffer(5);
-                allBuffer2[0] = LEFT_MOTOR_REGISTER;
-                allBuffer2[1] = 0;
-                allBuffer2[2] = 0;
-                allBuffer2[3] = 0;
-                allBuffer2[4] = 0;
-                pins.i2cWriteBuffer(I2CADDR, allBuffer2)
+                let allBuffer22 = pins.createBuffer(5);
+                allBuffer22[0] = LEFT_MOTOR_REGISTER;
+                allBuffer22[1] = 0;
+                allBuffer22[2] = 0;
+                allBuffer22[3] = 0;
+                allBuffer22[4] = 0;
+                pins.i2cWriteBuffer(I2CADDR, allBuffer22)
                 break;
         }
     }
@@ -228,7 +268,7 @@ namespace maqueenSimple {
      * @param eSwitch Control LED light on or off
      */
 
-    //% block="control %eled %eSwitch"
+    //% block="turn %eled %eSwitch"
     //% weight=97
     export function controlLED(eled: MyEnumLed, eSwitch: MyEnumSwitch): void {
         switch (eled) {
@@ -326,14 +366,14 @@ namespace maqueenSimple {
     }
 
     /**
-     * Acquiring ultrasonic data
-     * @param trig trig pin selection enumeration, eg:DigitalPin.P13
-     * @param echo echo pin selection enumeration, eg:DigitalPin.P14
+     * Acquiring ultrasonic data better
      */
 
-    //% block="set ultrasonic sensor TRIG pin %trig ECHO pin %echo read data unit:cm"
+    //% block="read ultrasonic distance (cm)"
     //% weight=94
-    export function readUltrasonic(trig: DigitalPin, echo: DigitalPin): number {
+    export function readDistance(): number {
+        let trig=DigitalPin.P13;
+        let echo=DigitalPin.P14;
         let data3;
         pins.digitalWritePin(trig, 1);
         basic.pause(1);
@@ -357,6 +397,40 @@ namespace maqueenSimple {
         if (data3 > 500)
             return 500;
         return Math.round(data3);
+    }
+
+    /**
+     * Acquiring ultrasonic data
+     * @param trig trig pin selection enumeration, eg:DigitalPin.P13
+     * @param echo echo pin selection enumeration, eg:DigitalPin.P14
+     */
+
+    //% block="set ultrasonic sensor TRIG pin %trig ECHO pin %echo read data unit:cm"
+    //% weight=94
+    export function readUltrasonic(trig: DigitalPin, echo: DigitalPin): number {
+        let data32;
+        pins.digitalWritePin(trig, 1);
+        basic.pause(1);
+        pins.digitalWritePin(trig, 0)
+        if (pins.digitalReadPin(echo) == 0) {
+            pins.digitalWritePin(trig, 0);
+            pins.digitalWritePin(trig, 1);
+            basic.pause(20);
+            pins.digitalWritePin(trig, 0);
+            data32 = pins.pulseIn(echo, PulseValue.High, 500 * 58);
+        } else {
+            pins.digitalWritePin(trig, 1);
+            pins.digitalWritePin(trig, 0);
+            basic.pause(20);
+            pins.digitalWritePin(trig, 0);
+            data32 = pins.pulseIn(echo, PulseValue.High, 500 * 58)
+        }
+        data32 = data32 / 59;
+        if (data32 <= 0)
+            return 0;
+        if (data32 > 500)
+            return 500;
+        return Math.round(data32);
     }
 
     /**
