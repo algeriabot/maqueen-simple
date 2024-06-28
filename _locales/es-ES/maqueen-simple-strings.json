@@ -14,8 +14,8 @@
     "maqueenSimple.readDistance|block": "leer distancia ultrasónica (cm)",
     "maqueenSimple.readLineSensorState|block": "leer estado del sensor de línea %eline",
 
-    "maqueenSimple.Dir.Backward|block": "adelante",
-    "maqueenSimple.Dir.Forward|block": "atrás",
+    "maqueenSimple.Dir.Forward|block": "adelante",
+    "maqueenSimple.Dir.Backward|block": "atrás",
 
     "maqueenSimple.LeftRight.Left|block": "↺ izquierda",
     "maqueenSimple.LeftRight.Right|block": "↻ derecha",
@@ -34,8 +34,8 @@
     "maqueenSimple.Motor.RightMotor|block": "motor derecho",
     "maqueenSimple.Motor.AllMotor|block": "ambos motores",
 
-    "maqueenSimple.MyEnumSwitch.Close|block": "apagado", // off
-    "maqueenSimple.MyEnumSwitch.Open|block": "encendido", // on
+    "maqueenSimple.MyEnumSwitch.Close|block": "apagado",
+    "maqueenSimple.MyEnumSwitch.Open|block": "encendido",
 
     "maqueenSimple.NeoPixelColors.Red|block": "rojo",
     "maqueenSimple.NeoPixelColors.Orange|block": "naranja",

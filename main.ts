@@ -176,15 +176,15 @@ namespace maqueenSimple {
      * @param time How long to turn for
      */
     //% block="turn %dir for %time seconds"
-    //% time.min=0 time.max=10
+    //% time.min=0.00 time.max=10.00
     //% weight=99
     export function turn(dir: LeftRight, time: number): void {
         if (dir == LeftRight.Left) {
-            controlMotor(Motor.LeftMotor, Dir.Backward, 100);
-            controlMotor(Motor.RightMotor, Dir.Forward, 100);
+            controlMotor(Motor.LeftMotor, Dir.Backward, 80);
+            controlMotor(Motor.RightMotor, Dir.Forward, 80);
         } else if (dir == LeftRight.Right) {
-            controlMotor(Motor.RightMotor, Dir.Backward, 100);
-            controlMotor(Motor.LeftMotor, Dir.Forward, 100);
+            controlMotor(Motor.RightMotor, Dir.Backward, 80);
+            controlMotor(Motor.LeftMotor, Dir.Forward, 80);
         }
         basic.pause(time * 1000);
         controlMotorStop(Motor.AllMotor);
