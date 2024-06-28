@@ -1,7 +1,7 @@
-//% weight=110 color=#aa48fa icon="\uf085" block="Robot"
+//% weight=110 color=#8c24e0 icon="\uf085" block="Robot"
 namespace maqueenSimple {
 
-    // weight=110 color=#aa48fa icon="\uf085" block="Robot"
+    // weight=110 color=#8c24e0 icon="\uf085" block="Robot"
 
     //Motor selection enumeration
     export enum Motor {

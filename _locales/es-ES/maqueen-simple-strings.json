@@ -1,0 +1,61 @@
+{
+    "maqueenSimple.I2CInit|block": "inicializar robot",
+
+    "maqueenSimple.moveForward|block": "mover %edir por %time segundos",
+    "maqueenSimple.turn|block": "girar %dir por %time segundos",
+    "maqueenSimple.controlMotor|block": "asignar %emotor para mover %edir a una velocidad de %speed",
+    "maqueenSimple.controlMotorStop|block": "detener %emotor",
+
+    "maqueenSimple.controlLED|block": "configurar %eled %eSwitch",
+    "maqueenSimple.setIndexColor|block": "mostrar color %rgb en luz RGB %light",
+    "maqueenSimple.setBrightness|block": "configurar el brillo RGB a |%brightness",
+    "maqueenSimple.ledBlank|block": "apagar todos los RGB",
+
+    "maqueenSimple.readDistance|block": "leer distancia ultrasónica (cm)",
+    "maqueenSimple.readLineSensorState|block": "leer estado del sensor de línea %eline",
+
+    "maqueenSimple.Dir.Backward|block": "adelante",
+    "maqueenSimple.Dir.Forward|block": "atrás",
+
+    "maqueenSimple.LeftRight.Left|block": "↺ izquierda",
+    "maqueenSimple.LeftRight.Right|block": "↻ derecha",
+
+    "maqueenSimple.MyEnumLed.AllLed|block": "ambos LEDs",
+    "maqueenSimple.MyEnumLed.LeftLed|block": "LED izquierdo",
+    "maqueenSimple.MyEnumLed.RightLed|block": "LED derecho",
+
+    "maqueenSimple.MyEnumLineSensor.SensorL1|block": "L1",
+    "maqueenSimple.MyEnumLineSensor.SensorL2|block": "L2",
+    "maqueenSimple.MyEnumLineSensor.SensorM|block": "M",
+    "maqueenSimple.MyEnumLineSensor.SensorR1|block": "R1",
+    "maqueenSimple.MyEnumLineSensor.SensorR2|block": "R2",
+
+    "maqueenSimple.Motor.LeftMotor|block": "motor izquierdo",
+    "maqueenSimple.Motor.RightMotor|block": "motor derecho",
+    "maqueenSimple.Motor.AllMotor|block": "ambos motores",
+
+    "maqueenSimple.MyEnumSwitch.Close|block": "apagado", // off
+    "maqueenSimple.MyEnumSwitch.Open|block": "encendido", // on
+
+    "maqueenSimple.NeoPixelColors.Red|block": "rojo",
+    "maqueenSimple.NeoPixelColors.Orange|block": "naranja",
+    "maqueenSimple.NeoPixelColors.Yellow|block": "amarillo",
+    "maqueenSimple.NeoPixelColors.Green|block": "verde",
+    "maqueenSimple.NeoPixelColors.Blue|block": "azul",
+    "maqueenSimple.NeoPixelColors.Indigo|block": "añil",
+    "maqueenSimple.NeoPixelColors.Violet|block": "violeta",
+    "maqueenSimple.NeoPixelColors.Purple|block": "morado",
+    "maqueenSimple.NeoPixelColors.White|block": "blanco",
+    "maqueenSimple.NeoPixelColors.Black|block": "negro",
+
+    "maqueenSimple.NeoPixelEnum.All|block": "todas",
+    "maqueenSimple.NeoPixelEnum.FrontLeft|block": "izquierda delantera",
+    "maqueenSimple.NeoPixelEnum.FrontRight|block": "derecha delantera",
+    "maqueenSimple.NeoPixelEnum.BackLeft|block": "izquierda trasera",
+    "maqueenSimple.NeoPixelEnum.BackRight|block": "derecha trasera",
+    
+
+    "maqueenSimple|block": "Robot",
+    "{id:category}maqueenSimple": "Maqueen",
+    "{id:category}Ws2812b": "WS2812B"
+}
