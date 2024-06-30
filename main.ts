@@ -1,7 +1,8 @@
-//% weight=110 color=#8c24e0 icon="\uf085" block="Robot"
+//% weight=115 color=#8c24e0 icon="\uf085" block="Robot"
+//% groups="['Movimiento', 'Luces', 'Sensores']"
 namespace maqueenSimple {
 
-    // weight=110 color=#8c24e0 icon="\uf085" block="Robot"
+    // weight=115 color=#8c24e0 icon="\uf085" block="Robot"
 
     //Motor selection enumeration
     export enum Motor {
@@ -124,8 +125,6 @@ namespace maqueenSimple {
      *  Init I2C until success
      */
 
-    //% weight=0
-    //%block="initialize robot"
     export function I2CInit(): void {
         let Version_v = 0;
         pins.i2cWriteNumber(I2CADDR, 0x32, NumberFormat.Int8LE);
@@ -160,12 +159,13 @@ namespace maqueenSimple {
      * @param time How long to move forward for
      */
 
-    //% block="move %edir for %time seconds"
-    //% time.min=0 time.max=100
+    //% block="move %edir for %time ms"
+    //% time.min=0
     //% weight=100
+    //% group="Movimiento"
     export function moveForward(edir: Dir, time: number): void {
         controlMotor(Motor.AllMotor, edir, 100);
-        basic.pause(time * 1000);
+        basic.pause(time);
         controlMotorStop(Motor.AllMotor);
     }
 
@@ -178,6 +178,7 @@ namespace maqueenSimple {
     //% block="turn %dir for %time seconds"
     //% time.min=0.00 time.max=10.00
     //% weight=99
+    //% group="Movimiento"
     export function turn(dir: LeftRight, time: number): void {
         if (dir == LeftRight.Left) {
             controlMotor(Motor.LeftMotor, Dir.Backward, 80);
@@ -186,7 +187,7 @@ namespace maqueenSimple {
             controlMotor(Motor.RightMotor, Dir.Backward, 80);
             controlMotor(Motor.LeftMotor, Dir.Forward, 80);
         }
-        basic.pause(time * 1000);
+        basic.pause(time);
         controlMotorStop(Motor.AllMotor);
     }
 
@@ -214,6 +215,7 @@ namespace maqueenSimple {
     //% block="set %emotor moving %edir speed %speed"
     //% speed.min=0 speed.max=255
     //% weight=98
+    //% group="Movimiento"
     export function controlMotor(emotor: Motor, edir: Dir, speed: number): void {
         switch (emotor) {
             case Motor.LeftMotor:
@@ -267,6 +269,7 @@ namespace maqueenSimple {
 
     //% block="stop %emotor"
     //% weight=96
+    //% group="Movimiento"
     export function controlMotorStop(emotor: Motor): void {
         switch (emotor) {
             case Motor.LeftMotor:
@@ -303,6 +306,7 @@ namespace maqueenSimple {
 
     //% block="turn %eled %eSwitch"
     //% weight=95
+    //% group="Luces"
     export function controlLED(eled: MyEnumLed, eSwitch: MyEnumSwitch): void {
         switch (eled) {
             case MyEnumLed.LeftLed:
@@ -368,6 +372,7 @@ namespace maqueenSimple {
     //% weight=94
     //% index.min=0 index.max=3
     //% block="show color |%rgb on |%light RGB light"
+    //% group="Luces"
     export function setIndexColor(rgb: NeoPixelColors, light: NeoPixelEnum) {
         let index = 0;
         if (light == NeoPixelEnum.All) {
@@ -433,6 +438,7 @@ namespace maqueenSimple {
     //% weight=93
     //% brightness.min=0 brightness.max=255
     //% block="set RGB brightness to |%brightness"
+    //% group="Luces"
     export function setBrightness(brightness: number) {
         _brightness = brightness;
     }
@@ -443,6 +449,7 @@ namespace maqueenSimple {
 
     //% weight=92
     //% block="clear all RGB"
+    //% group="Luces"
     export function ledBlank() {
         showColor(0)
     }
@@ -453,6 +460,7 @@ namespace maqueenSimple {
 
     //% block="read ultrasonic distance (cm)"
     //% weight=91
+    //% group="Sensores"
     export function readDistance(): number {
         let trig = DigitalPin.P13;
         let echo = DigitalPin.P14;
@@ -488,6 +496,7 @@ namespace maqueenSimple {
 
     //% block="read line sensor %eline state"
     //% weight=90
+    //% group="Sensores"
     export function readLineSensorState(eline: MyEnumLineSensor): number {
         pins.i2cWriteNumber(I2CADDR, LINE_STATE_REGISTER, NumberFormat.Int8LE);
         let data = pins.i2cReadNumber(I2CADDR, NumberFormat.Int8LE)

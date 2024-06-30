@@ -1,8 +1,8 @@
 {
     "maqueenSimple.I2CInit|block": "inicializar robot",
 
-    "maqueenSimple.moveForward|block": "mover %edir por %time segundos",
-    "maqueenSimple.turn|block": "girar %dir por %time segundos",
+    "maqueenSimple.moveForward|block": "mover %edir por %time ms",
+    "maqueenSimple.turn|block": "girar %dir por %time ms",
     "maqueenSimple.controlMotor|block": "asignar %emotor para mover %edir a una velocidad de %speed",
     "maqueenSimple.controlMotorStop|block": "detener %emotor",
 
