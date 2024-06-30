@@ -175,8 +175,8 @@ namespace maqueenSimple {
      * @param dir Direction to move in
      * @param time How long to turn for
      */
-    //% block="turn %dir for %time seconds"
-    //% time.min=0.00 time.max=10.00
+    //% block="turn %dir for %time ms"
+    //% time.min=0
     //% weight=99
     //% group="Movimiento"
     export function turn(dir: LeftRight, time: number): void {
